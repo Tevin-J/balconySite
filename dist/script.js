@@ -15252,7 +15252,7 @@ var modals = function modals() {
   function showModalByTime(selector, time) {
     setTimeout(function () {
       document.querySelector(selector).style.display = 'block';
-      document.body.classList.remove('modal-open');
+      document.body.classList.add('modal-open');
     }, time);
   }
   /*вызов метода для показа модального окна "вызвать мастера". в него передаем не элементы, которые соответствуют
@@ -15266,7 +15266,7 @@ var modals = function modals() {
   bindModal('.phone_link', '.popup', '.popup .popup_close');
   /*показ модального окна с селектором popup спустя минуту после загрузки страницы*/
 
-  /*showModalByTime('.popup', 60000)*/
+  /*showModalByTime('.popup_engineer', 60000)*/
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (modals);
