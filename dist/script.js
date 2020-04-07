@@ -15266,7 +15266,7 @@ var modals = function modals() {
   bindModal('.phone_link', '.popup', '.popup .popup_close');
   /*показ модального окна с селектором popup спустя минуту после загрузки страницы*/
 
-  /*showModalByTime('.popup_engineer', 60000)*/
+  /*showModalByTime('.popup', 60000)*/
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (modals);

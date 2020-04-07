@@ -44,6 +44,6 @@ const modals = () => {
     /*селектору phone_link соответствуют 2 точки открытия модального окна, для этого внутри bindModal применен метод forEach*/
     bindModal('.phone_link', '.popup', '.popup .popup_close')
     /*показ модального окна с селектором popup спустя минуту после загрузки страницы*/
-    /*showModalByTime('.popup_engineer', 60000)*/
+    /*showModalByTime('.popup', 60000)*/
 }
 export default modals
