@@ -47,7 +47,6 @@ const forms = () => {
             postData('assets/server.php', formData)
                 /*обрабатываем ответ от сервера и выводим соответствующее сообщение*/
                 .then(res => {
-                    console.log(res)
                     statusMessage.textContent = message.success
                 })
                 .catch(() => {
