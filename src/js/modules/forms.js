@@ -1,15 +1,13 @@
 /*ФОРМЫ*/
-const forms = () => {
-    /*получаем форму, инпуты, и инпуты в коротых необходима проверка на наличие только цифр*/
+import checkNumInputs from "./checkNumInputs";
+/*для того чтоб отправить на сервер помимо данных формы, но и данные из калькулятора,
+мы передали эти данные в качестве аргумента сюда*/
+const forms = (state) => {
+    /*получаем форму, инпуты*/
     const form = document.querySelectorAll('form')
     const inputs = document.querySelectorAll('input')
-    const phoneInputs = document.querySelectorAll('input[name="user_phone"]')
-    /*для всех инпутов в которых должны быть только цифры, с помощью regex и флажка \D запрещаем ввод не цифр*/
-    phoneInputs.forEach(item => {
-        item.addEventListener('input', () => {
-            item.value = item.value.replace(/\D/, '')
-        })
-    })
+    /*отправляем инпуты в которых необходима проверка на наличие только цифр в спец функцию*/
+    checkNumInputs('input[name="user_phone"]')
     /*создаем объект с сообщениями о статусе запроса на сервер*/
     const message = {
         loading: 'Загрузка...',
@@ -43,10 +41,18 @@ const forms = () => {
             item.appendChild(statusMessage)
             /*для получения данных формы используем FormData*/
             const formData = new FormData(item)
+            /*если форма которую мы заполнили соответствует форме калькулятора, то мы пробегаемся по
+            пришедшему стейту и каждое его свойство добавляем в formData*/
+            if (item.getAttribute('data-calc') === "end") {
+                for (let key in state) {
+                    formData.append(key, state[key])
+                }
+            }
             /*делаем запрос на сервер и отправляем на него данные из формы*/
             postData('assets/server.php', formData)
                 /*обрабатываем ответ от сервера и выводим соответствующее сообщение*/
                 .then(res => {
+                    console.log(res)
                     statusMessage.textContent = message.success
                 })
                 .catch(() => {
