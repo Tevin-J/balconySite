@@ -37,6 +37,13 @@ const changeModalState = (state) => {
                         state[prop] = item.value
                         break
                 }
+                /*раздизейбливаем кнопки калькулятора если введены все инпуты*/
+                if (Object.keys(state).length === 3) {
+                    document.querySelector('.popup_calc_button').removeAttribute('disabled')
+                }
+                if (Object.keys(state).length === 5) {
+                    document.querySelector('.popup_calc_profile_button').removeAttribute('disabled')
+                }
                 console.log(state)
             })
         })

@@ -1,12 +1,14 @@
 /*МОДАЛЬНЫЕ ОКНА*/
 const modals = () => {
-    function bindModal(triggerSelector, modalSelector, closeSelector, closeClickOverlay = true) {
+    function bindModal(triggerSelector, modalSelector, closeSelector, closeClickOverlay = true, disabled = '') {
         /*получаем элементы по пришедшим в функцию селекторам*/
         const trigger = document.querySelectorAll(triggerSelector)
         const modal = document.querySelector(modalSelector)
         const close = document.querySelector(closeSelector)
         /*поиск элементов модальных окон по дата-атрибуту data-modal. Он указан в index.html*/
         const windows = document.querySelectorAll('[data-modal]')
+        /*изначально делаем кнопку модальных окон калькулятора задизабленой пока не будут введены все значения*/
+        disabled && document.querySelector(triggerSelector).setAttribute('disabled', disabled)
         /*показ модального окна реализовали через forEach так как в 1 из модальных окон есть 2 кнопки для его показа*/
         trigger.forEach(item => {
             item.addEventListener('click', (e) => {
@@ -60,8 +62,8 @@ const modals = () => {
     bindModal('.phone_link', '.popup', '.popup .popup_close')
     bindModal('.popup_calc_btn', '.popup_calc', '.popup_calc_close')
     /*2 модальных окна которые появляются по очереди для рассчета стоимости, они не должны закрываться при клике на подложку*/
-    bindModal('.popup_calc_button', '.popup_calc_profile', '.popup_calc_profile_close', false)
-    bindModal('.popup_calc_profile_button', '.popup_calc_end', '.popup_calc_end_close', false)
+    bindModal('.popup_calc_button', '.popup_calc_profile', '.popup_calc_profile_close', false, 'disabled')
+    bindModal('.popup_calc_profile_button', '.popup_calc_end', '.popup_calc_end_close', false, 'disabled')
     /*показ модального окна с селектором popup спустя минуту после загрузки страницы*/
     /*showModalByTime('.popup', 60000)*/
 

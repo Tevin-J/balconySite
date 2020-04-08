@@ -29,6 +29,12 @@ const forms = (state) => {
             item.value = ''
         })
     }
+    /*ф-я очистки стейта после отправки формы на сервер*/
+    const clearState = () => {
+        for (const prop of Object.keys(state)) {
+            delete state[prop]
+        }
+    }
     /*пробегаемся по всем формам*/
     form.forEach(item => {
         /*обрабатываем сабмит конкретной формы*/
@@ -63,6 +69,14 @@ const forms = (state) => {
                     setTimeout(() => {
                         statusMessage.remove()
                     }, 5000)
+                    /*закрытие формы калькулятора после отправки ее на сервер*/
+                    if (item.getAttribute('data-calc') === "end") {
+                        setTimeout(() => {
+                            item.closest('.popup_calc_end').style.display = 'none'
+                            document.body.classList.remove('modal-open')
+                        }, 6000)
+                    }
+                    clearState()
                 })
         })
     })
