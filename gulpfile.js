@@ -6,8 +6,8 @@ const webpack = require("webpack-stream");
 const browsersync = require("browser-sync");
 
 // путь, куда будут кампилироваться пакеты
-/*const dist = "./dist/";*/
-const dist = "C:/MAMP/htdocs/test";
+const dist = "./dist/";
+/*const dist = "C:/MAMP/htdocs/test";*/
 
 /*таски которые помогают собрать проект*/
 gulp.task("copy-html", () => {
