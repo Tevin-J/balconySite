@@ -17958,6 +17958,7 @@ var modals = function modals() {
     /*поиск элементов модальных окон по дата-атрибуту data-modal. Он указан в index.html*/
 
     var windows = document.querySelectorAll('[data-modal]');
+    var scroll = calcScroll();
     /*изначально делаем кнопку модальных окон калькулятора задизабленой пока не будут введены все значения*/
 
     disabled && document.querySelector(triggerSelector).setAttribute('disabled', disabled);
@@ -17979,6 +17980,9 @@ var modals = function modals() {
         /*класс modal-open из библиотеки bootstrap.css вместо document.body.overflow="hidden"*/
 
         document.body.classList.add('modal-open');
+        /*при открытии модального окна делаем отступ страницы на ширину скролла, чтоб скрыть подергивание страницы*/
+
+        document.body.style.marginRight = "".concat(scroll, "px");
       });
     });
     /*скрытие модального окна на клик кнопки*/
@@ -17990,6 +17994,7 @@ var modals = function modals() {
       });
       modal.style.display = 'none';
       document.body.classList.remove('modal-open');
+      document.body.style.marginRight = "0px";
     });
     /*скрытие модального окна на клик на подложку при условии что для данного окна разрешено
     закрытие при клике на подложку*/
@@ -18002,6 +18007,7 @@ var modals = function modals() {
         });
         modal.style.display = 'none';
         document.body.classList.remove('modal-open');
+        document.body.style.marginRight = "0px";
       }
     });
   }
@@ -18013,6 +18019,20 @@ var modals = function modals() {
       document.querySelector(selector).style.display = 'block';
       document.body.classList.add('modal-open');
     }, time);
+  }
+  /*ф-я вычисления ширины линии скролла, чтоб при открытии модального окна, у нас не дергалась страницв*/
+
+
+  function calcScroll() {
+    var div = document.createElement('div');
+    div.style.width = '50px';
+    div.style.height = '50px';
+    div.style.overflowY = 'scroll';
+    div.style.visibility = 'hidden';
+    document.body.appendChild(div);
+    var scrollWidth = div.offsetWidth - div.clientWidth;
+    div.remove();
+    return scrollWidth;
   }
   /*вызов метода для показа модального окна "вызвать мастера". в него передаем не элементы, которые соответствуют
   определенному селектору, а сами селекторы, а уже внутри функции мы по этим селекторам получим соответствующие им
